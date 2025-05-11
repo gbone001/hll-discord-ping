@@ -303,7 +303,23 @@ async def help_command(interaction: discord.Interaction):
         "/help - Show this help message"
     )
     await interaction.response.send_message(msg)
-
+#command to ban a player
+@tree.command(name="ban", description="Ban a player by their player ID")
+@app_commands.describe(player_id="The ID of the player to ban")
+async def ban(interaction: discord.Interaction, player_id: str):
+    logger.info(f"[/ban] Requested by {interaction.user} (ID: {interaction.user.id}) to ban player {player_id}")
+    
+    # API call to ban the player
+    response = requests.post(
+        f"{API_BASE_URL}/ban",
+        headers=HEADERS,
+        json={"player_id": player_id}
+    )
+    
+    if response.status_code == 200:
+        await interaction.response.send_message(f"✅ Player `{player_id}` has been banned successfully.")
+    else:
+        await interaction.response.send_message(f"❌ Failed to ban player `{player_id}`. Error: {response.text}")
 # --- Bot startup ---
 # Ensure you are sending the message once the bot is ready.
 @client.event
