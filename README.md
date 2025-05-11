@@ -34,7 +34,7 @@ Currently we can issue commands
 /setscheduledtime <job> <time> <ping> - Set scheduled job time and ping follow prompts
 /online - Check if bot and API are running
 /help - Show this help message
-
+/ban - bans a player from the server
 
 
 
